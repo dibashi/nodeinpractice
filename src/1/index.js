@@ -1,11 +1,11 @@
-var CountStream = require('./countstream');
-var countstream = new CountStream('楼盘');
-var http = require('http');
+var events=require('events');
+var emitter=new events.EventEmitter();
 
-http.get('http://www.leju.com', function(res) {
-	res.pipe(countstream);
+function hello(name){
+  console.log("hello",name);
+}
+emitter.on('newListener',function(eventName,listener){
+  console.log(eventName);
+  console.log(listener);
 });
-
-countstream.on('total', function(data){
-	console.log('Total matches:' + data);
-});
+emitter.addListener('say',hello);
